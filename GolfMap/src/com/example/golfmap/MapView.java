@@ -21,17 +21,19 @@ public class MapView extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		gps = new GPSTracker(this);
 		points = GPSRefresh();
 		latitude = points[0];
 		longitude = points[1];
+		
 		setContentView(R.layout.activity_main);
 		map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
 		map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 		
-		Bundle b = getIntent().getExtras();
-		int value = b.getInt("key");
-		
-		System.out.println("value: " + value);
+//		Bundle b = getIntent().getExtras();
+//		int value = b.getInt("key");
+//		
+//		System.out.println("value: " + value);
 		
 		CameraPosition cameraPosition = new CameraPosition.Builder().target(
                 new LatLng(latitude, longitude)).zoom(18).build();
@@ -42,18 +44,24 @@ public class MapView extends Activity {
 	public double[] GPSRefresh(){
 		
 		double[] point = {0, 0};
+		double latitude;
+		double longitude;
 		gps.getLocation();
 		
 		if(gps.canGetLocation()){
-			double latitude = gps.getLatitude();
-			double longitude = gps.getLongitude();
-			
-			point[0] = latitude;
-			point[1] = longitude;			
+			latitude = gps.getLatitude();
+			longitude = gps.getLongitude();
+				
 		}
 		else{			
 			gps.showSettingsAlert();
+			latitude = 40.783723;
+			longitude = -74.083018;
 		}
+		
+		point[0] = latitude;
+		point[1] = longitude;	
+		
 		return point;
 	}
 

@@ -375,14 +375,15 @@ containing a value of this type.
         public static final int common_signin_btn_text_pressed_dark=0x7f020017;
         public static final int common_signin_btn_text_pressed_light=0x7f020018;
         public static final int golf_divider=0x7f020019;
-        public static final int ic_launcher=0x7f02001a;
-        public static final int ic_plusone_medium_off_client=0x7f02001b;
-        public static final int ic_plusone_small_off_client=0x7f02001c;
-        public static final int ic_plusone_standard_off_client=0x7f02001d;
-        public static final int ic_plusone_tall_off_client=0x7f02001e;
-        public static final int icon=0x7f02001f;
-        public static final int selector=0x7f020020;
-        public static final int settings=0x7f020021;
+        public static final int golf_icon=0x7f02001a;
+        public static final int ic_launcher=0x7f02001b;
+        public static final int ic_plusone_medium_off_client=0x7f02001c;
+        public static final int ic_plusone_small_off_client=0x7f02001d;
+        public static final int ic_plusone_standard_off_client=0x7f02001e;
+        public static final int ic_plusone_tall_off_client=0x7f02001f;
+        public static final int icon=0x7f020020;
+        public static final int selector=0x7f020021;
+        public static final int settings=0x7f020022;
     }
     public static final class id {
         public static final int Courses01=0x7f050006;
@@ -407,14 +408,14 @@ containing a value of this type.
         public static final int main=0x7f0a0000;
     }
     public static final class string {
-        public static final int Course=0x7f060027;
-        public static final int GPSAdd=0x7f06002a;
-        public static final int GPSRefresh=0x7f060025;
+        public static final int Course=0x7f060023;
+        public static final int GPSAdd=0x7f060026;
+        public static final int GPSRefresh=0x7f060021;
         public static final int Golf=0x7f06001e;
-        public static final int Hole=0x7f060028;
-        public static final int ItemEdit=0x7f06002b;
+        public static final int Hole=0x7f060024;
+        public static final int ItemEdit=0x7f060027;
         public static final int List=0x7f060020;
-        public static final int Type=0x7f060029;
+        public static final int Type=0x7f060025;
         public static final int action_settings=0x7f06001c;
         public static final int app_name=0x7f06001b;
         /**   Title for notification shown when GooglePlayServices needs to be
@@ -516,11 +517,7 @@ containing a value of this type.
         /**  Location client code resources (prefix with location_client) 
          */
         public static final int location_client_powered_by_google=0x7f06001a;
-        public static final int menu_course1=0x7f060021;
-        public static final int menu_course2=0x7f060022;
-        public static final int menu_course3=0x7f060023;
-        public static final int menu_course4=0x7f060024;
-        public static final int sayIt=0x7f060026;
+        public static final int sayIt=0x7f060022;
     }
     public static final class style {
         /** 

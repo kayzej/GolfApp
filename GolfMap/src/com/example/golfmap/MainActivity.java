@@ -1,12 +1,18 @@
 package com.example.golfmap;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+
+import com.kayzej.services.DataBaseHelper;
+
 import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.SQLException;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,11 +31,15 @@ public class MainActivity extends Activity {
 		ctx = this.getBaseContext();
 		ListView menuList = (ListView) findViewById(R.id.ListView_Menu);
 		ArrayList<String> items = new ArrayList<String>();
+		DataBaseHelper db = new DataBaseHelper(ctx);
+		db = dbPrep(db);
+		List<Course> CourseList = db.getAllCourses();
+		//List<Item> Items = db.getAllItems();
 		
-		items.add("Black Oak");
-		items.add("Francis Byrne");
-		items.add("Bethpage Black");
-		
+		for (Course course : CourseList){
+			items.add(course.getCourse_name());
+		}
+
 		ArrayAdapter<String> adapt = new ArrayAdapter<String>(this, R.layout.menu_item, items);
 		menuList.setAdapter(adapt);
 		
@@ -47,6 +57,32 @@ public class MainActivity extends Activity {
 	             finish();
 	         }
 	     });
+	}
+	
+	public DataBaseHelper dbPrep(DataBaseHelper db){
+		try {
+			
+			 db.createDataBase();
+			 System.out.println("db created succesfully");
+	 
+	 	} catch (IOException ioe) {
+	 		
+	 		System.out.println("Io excpetion: " + ioe.getMessage());
+	 		throw new Error("Unable to create database");
+	 
+	 	}
+	 
+	 	try {
+	 
+	 		db.openDataBase();
+	 		System.out.println("db opened succesfully");
+	 
+	 	}catch(SQLException sqle){
+	 		System.out.println("sql exception: " + sqle.getLocalizedMessage());
+	 		throw sqle;	 
+	 	}
+	 	
+	 	return db;
 	}
 	
 	@Override

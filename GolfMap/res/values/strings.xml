@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">GolfLocation</string>
+    <string name="app_name">GolfMap</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="Golf">Golf</string>
     <string name="desc">this is a description</string>
     <string name="List">Course List</string>
-    <string name="menu_course1">Course1</string>
-	<string name="menu_course2">Course2</string>
-	<string name="menu_course3">Course3</string>
-	<string name="menu_course4">Course4</string>
+
 	<string name="GPSRefresh">Refresh GPS</string>
 	<string name="sayIt">Say It!</string>
 	
