@@ -1,18 +1,13 @@
 package com.example.golfmap;
 
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.kayzej.services.DataBaseHelper;
-
 import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.database.SQLException;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,66 +20,45 @@ public class MainActivity extends Activity {
 	Context ctx;
 	
 	protected void onCreate(Bundle savedInstanceState) {
+		
+		//On create, set the layout to the course list which is pulled from the local DB
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.course_list);
 
 		ctx = this.getBaseContext();
 		ListView menuList = (ListView) findViewById(R.id.ListView_Menu);
+		
+		//Creating a new DBHelper instance
 		ArrayList<String> items = new ArrayList<String>();
 		DataBaseHelper db = new DataBaseHelper(ctx);
-		db = dbPrep(db);
-		List<Course> CourseList = db.getAllCourses();
-		//List<Item> Items = db.getAllItems();
+		final List<Course> CourseList = db.getAllCourses();
 		
+		//Loading each course into the list view
 		for (Course course : CourseList){
 			items.add(course.getCourse_name());
 		}
 
+		//Creating the list view
 		ArrayAdapter<String> adapt = new ArrayAdapter<String>(this, R.layout.menu_item, items);
 		menuList.setAdapter(adapt);
 		
+		//Setting the listener to find which course was clicked and open a MapView for that course
 		menuList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 	         public void onItemClick(AdapterView<?> parent, View itemClicked, int position, long id) {
-
-	             // Note: if the list was built "by hand" the id could be used.
-	             // As-is, though, each item has the same id
+	        	 
                  Intent intent = new Intent(MainActivity.this, MapView.class);
-	             //Bundle b = new Bundle();
-	             //b.putInt("key", 1); //Your id
-	             //intent.putExtras(b); //Put your id to your next Intent
+                 int cid = CourseList.get(position).getCourse_id();
+                 //Bundle used to send data to the next activity, sending course id 
+                 Bundle b = new Bundle();
+	             b.putInt("key", cid); //Your id
+	             intent.putExtras(b); //Put your id to your next Intent
 	             startActivity(intent);
 	             finish();
 	         }
 	     });
 	}
-	
-	public DataBaseHelper dbPrep(DataBaseHelper db){
-		try {
-			
-			 db.createDataBase();
-			 System.out.println("db created succesfully");
-	 
-	 	} catch (IOException ioe) {
-	 		
-	 		System.out.println("Io excpetion: " + ioe.getMessage());
-	 		throw new Error("Unable to create database");
-	 
-	 	}
-	 
-	 	try {
-	 
-	 		db.openDataBase();
-	 		System.out.println("db opened succesfully");
-	 
-	 	}catch(SQLException sqle){
-	 		System.out.println("sql exception: " + sqle.getLocalizedMessage());
-	 		throw sqle;	 
-	 	}
-	 	
-	 	return db;
-	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

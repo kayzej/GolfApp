@@ -42,6 +42,27 @@ public class DataBaseHelper extends SQLiteOpenHelper{
     	super(context, DB_NAME, null, 1);
     	//delete(context);
         this.myContext = context;
+        try {
+			
+			 this.createDataBase();
+			 System.out.println("db created succesfully");
+	 
+	 	} catch (IOException ioe) {
+	 		
+	 		System.out.println("Io excpetion: " + ioe.getMessage());
+	 		throw new Error("Unable to create database");
+	 
+	 	}
+	 
+	 	try {
+	 
+	 		this.openDataBase();
+	 		System.out.println("db opened succesfully");
+	 
+	 	}catch(SQLException sqle){
+	 		System.out.println("sql exception: " + sqle.getLocalizedMessage());
+	 		throw sqle;	 
+	 	}
     }	
     
   /**
@@ -181,7 +202,29 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 
 		// return Item list
 		return ItemList;
-	}	 
+	}
+	
+	public double[] getCourseDefaults(int cid){
+		double[] points = {0.0, 0.0};
+		
+		//Setting sql queries for gettin def_lat and def_long
+		String latQuery = "SELECT def_lat FROM Courses Where _id = " + cid;
+		String longQuery = "SELECT def_long FROM Courses Where _id = " + cid;
+
+		//Cursors don't execute until .moveToFirst() is called
+		Cursor latCursor = myDataBase.rawQuery(latQuery, null);
+		if(latCursor.moveToFirst()){
+			points[0] = Double.parseDouble((latCursor.getString(0)));
+		}
+		
+		Cursor longCursor = myDataBase.rawQuery(longQuery, null);
+		if(longCursor.moveToFirst()){
+			points[1] = Double.parseDouble((longCursor.getString(0)));
+		}
+		
+		
+		return points;
+	}
 	
 	public List<Course> getAllCourses() {
 		List<Course> CourseList = new ArrayList<Course>();
@@ -193,7 +236,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 		if (cursor.moveToFirst()) {
 			do {
 				Course course = new Course();
-				
+				course.setCourse_id(Integer.parseInt(cursor.getString(0)));
 				course.setCourse_name(cursor.getString(1));
 				course.setDef_lat(Double.parseDouble(cursor.getString(2)));
 				course.setDef_long(Double.parseDouble(cursor.getString(3)));

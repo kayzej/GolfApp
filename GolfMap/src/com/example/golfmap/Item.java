@@ -1,5 +1,6 @@
 package com.example.golfmap;
 
+//Item Class for holding all records of a given type
 public class Item {
 	int course_id;
 	int hole;

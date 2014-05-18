@@ -3,6 +3,10 @@
 
     <string name="app_name">GolfMap</string>
     <string name="action_settings">Settings</string>
+    <string name="CurLoc">Current Location</string>
+    <string name="DefLoc">Default Location</string>
+    
+    
     <string name="hello_world">Hello world!</string>
     <string name="Golf">Golf</string>
     <string name="desc">this is a description</string>
